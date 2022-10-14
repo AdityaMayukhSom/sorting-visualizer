@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.algorithm-names-list-item {
+		@apply w-full px-5 py-2 list-none cursor-pointer box-border hover:bg-[#323232] select-none;
+	}
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Space Mono", monospace;
+	font-size: large;
+}
+.hide {
+	display: none;
+}
