@@ -8,6 +8,7 @@ var margin_size;
 var arrayContainer = document.getElementById("array-container");
 var visualize = document.getElementById("visualize-button");
 var alertToast = document.getElementById("alert-toast");
+var notAvailableToast = document.getElementById("not-available-toast");
 
 //Selection of algorithm using dropdown
 var algorithmSelectionField = document.getElementById("algorithm-selection-field");
@@ -15,6 +16,7 @@ var selectedAlgorithm = document.getElementById("selected-algorithm");
 var algorithmNamesListItems = document.getElementsByClassName("algorithm-names-list-item");
 var algorithmNamesList = document.getElementById("algorithm-names-list");
 var dropdownArrowIcon = document.getElementById("dropdown-arrow-icon");
+dropdownArrowIcon.classList.toggle("rotate-180");
 
 algorithmSelectionField.onclick = function () {
 	algorithmNamesList.classList.toggle("invisible");
@@ -92,6 +94,29 @@ function showAlert() {
 	}, 2000);
 }
 
+
+showNotAvailableIntervalID = null;
+showNotAvailableTimeoutID = null;
+function showNotAvailable() {
+	notAvailableToast.classList.remove("invisible");
+	notAvailableToast.style.opacity = 1;
+	if (showNotAvailableIntervalID != null || showNotAvailableTimeoutID != null) {
+		notAvailableToast.style.opacity = 1;
+		clearInterval(showNotAvailableIntervalID);
+		clearTimeout(showNotAvailableTimeoutID);
+	}
+	showNotAvailableIntervalID = setTimeout(() => {
+		showNotAvailableIntervalID = setInterval(() => {
+			if (notAvailableToast.style.opacity > 0) {
+				notAvailableToast.style.opacity = notAvailableToast.style.opacity - 0.01;
+			} else {
+				notAvailableToast.classList.add("invisible");
+				clearInterval(showNotAvailableIntervalID);
+			}
+		}, 20);
+	}, 2000);
+}
+
 function runalgo() {
 	disable_buttons();
 	var selectedAlgorithmName = selectedAlgorithm.innerHTML.trim();
@@ -115,13 +140,16 @@ function runalgo() {
 			Heap();
 			break;
 		case "Radix Sort":
-			Radix();
+			showNotAvailable();
+			// Radix();
 			break;
 		case "Counting Sort":
-			Counting();
+			showNotAvailable();
+			// Counting();
 			break;
 		case "Bucket Sort":
-			Bucket();
+			showNotAvailable();
+			// Bucket();
 			break;
 		default:
 			showAlert();
